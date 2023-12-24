@@ -13,10 +13,14 @@ class ScheduleScreen extends StatefulWidget {
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
   User? _currentUser;
+  late DateTime selectedDate;
+  late int indexDay;
 
   @override
   void initState() {
     super.initState();
+    selectedDate = DateTime.now();
+    indexDay = calculateCycleDay(selectedDate, 6);
 
     // Initialize _currentUser based on the logged-in user ID
     SharedPreferences.getInstance().then((prefs) {
@@ -31,20 +35,22 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     });
   }
 
-// FIND DAY
-  int dayDifference = 0;
-  today = DateTime.now();
-  DateTime currentDay = calculateCurrentDay(today, dayDifference);
-  String dayWords = dayToWords(currentDay);
-  String dayWeekday = dayToWeekday(currentDay);
-  int indexDay = calculateCycleDay(currentDay, 6);
+  void _updateSelectedDate(int dayDifference) {
+    setState(() {
+      selectedDate = selectedDate.add(Duration(days: dayDifference));
+      int indexDay = calculateCycleDay(selectedDate, 6);
+    });
+  }
 
-////
+  int calculateIndexDay() {
+    return calculateCycleDay(selectedDate, 6);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${todayWeekday}"),
+        title: Text("${selectedDate}"),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
@@ -71,24 +77,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                setState(() {
-                  indexDay = indexDay - 1;
-                  while (indexDay < 0) {
-                    indexDay += 6;
-                  }
-                });
+                _updateSelectedDate(-1);
               },
             ),
             IconButton(
               icon: Icon(Icons.arrow_forward),
               onPressed: () {
-                setState(() {
-                  indexDay += 1;
-                  while (indexDay > 6) {
-                    indexDay -= 6;
-                  }
-                  ;
-                });
+                _updateSelectedDate(1);
               },
             ),
           ],
@@ -105,19 +100,22 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   }
 
   Widget _buildSchedule(User? user, int indexDay) {
-    if (user == null || user.schedules.length <= indexDay - 1) {
-      return Text('Schedule not found for this day\nToday is day: ${indexDay}');
-    } else if (user.schedules[indexDay - 1].classes.isEmpty) {
+    int indexDay = calculateCycleDay(selectedDate, 6);
+
+    if (user == null || user.schedules.length <= indexDay) {
+      return Text(
+          'Schedule not found for this day\nToday is day: ${indexDay + 1}');
+    } else if (user.schedules[indexDay].classes.isEmpty) {
       return Text('No classes for this day');
     } else {
       return ListView.builder(
-        itemCount: user.schedules[indexDay - 1].classes.length,
+        itemCount: user.schedules[indexDay].classes.length,
         itemBuilder: (context, index) {
-          var classInfo = user.schedules[indexDay - 1].classes[index];
+          var classInfo = user.schedules[indexDay].classes[index];
           return ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
             title: Text(
-              'Day ${indexDay}',
+              'Day ${indexDay + 1}',
             ),
             subtitle: Container(
               width: 300,
