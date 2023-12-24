@@ -23,7 +23,10 @@ class User {
   final String id;
   final List<Schedule> schedules;
 
-  User(this.id, this.schedules);
+  User(
+    this.id,
+    this.schedules,
+  );
 }
 
 void main() => runApp(MyApp());

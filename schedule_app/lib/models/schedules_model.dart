@@ -20,5 +20,11 @@ List<User> users = [
       // Add more schedules for user 0001 as needed
     ],
   ),
+  User(
+    '0404',
+    [
+      // Add more schedules for user 0404 as needed
+    ],
+  ),
   // Add more users and their schedules as needed
 ];
