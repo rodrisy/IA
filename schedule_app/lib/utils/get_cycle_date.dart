@@ -16,7 +16,11 @@ int calculateCycleDay(DateTime currentDate, int cycleDays) {
   }
 
   int cycleDay = daysBetween % cycleDays;
-  return cycleDay;
+  if (cycleDay == 0) {
+    return cycleDays;
+  } else {
+    return cycleDay;
+  }
 }
 
 String getUsername() {
