@@ -167,66 +167,70 @@ class _ScheduleScreen2State extends State<ScheduleScreen2> {
           )
         ],
       );
-    } else if (user.schedules[indexDay].classes.isEmpty) {
+    } else if (user.schedules[indexDay - 1].classes.isEmpty) {
       return Text(
         'No classes for this day',
         style: myFonts.classinfo,
       );
-    } else if (selectedDate == (DateTime)) {
-      return Text(
-        "Today theres no school",
-        style: myFonts.classinfo,
-      );
+      // } else if (selectedDate == (DateTime)) {
+      //   return Text(
+      //     "Today theres no school",
+      //     style: myFonts.classinfo,
+      //   );
 
       /// for days with vacation and no school
     } else {
-      return Column(
-        children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Text(
-                    "${weekDay}",
-                    style: myFonts.weekday,
-                  ),
-                  Text(
-                    "Day ${indexDay}",
-                    style: myFonts.dayindex,
-                  ),
-                ],
-              ),
-              Text(
-                "${selectedDate}",
-                style: myFonts.daylink,
-              ),
-            ],
-          ),
-          ListView.builder(
-            itemCount: user.schedules[indexDay].classes.length,
-            itemBuilder: (context, index) {
-              var classInfo = user.schedules[indexDay].classes[index];
-              return ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                title: Text(
-                  'Day ${indexDay + 1}',
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "${weekDay}",
+                      style: myFonts.weekday,
+                    ),
+                    Text(
+                      "Day ${indexDay}",
+                      style: myFonts.dayindex,
+                    ),
+                  ],
                 ),
-                subtitle: Container(
-                  width: 300,
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    '${classInfo.startTime} - ${classInfo.endTime}: ${classInfo.subject} with ${classInfo.teacher} in ${classInfo.room}',
-                  ),
+                Text(
+                  "${selectedDate}",
+                  style: myFonts.daylink,
                 ),
-              );
-            },
-          ),
-        ],
+              ],
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: user.schedules[indexDay].classes.length,
+              itemBuilder: (context, index) {
+                var classInfo = user.schedules[indexDay].classes[index];
+                return ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                  title: Text(
+                    'Day ${indexDay + 1}',
+                  ),
+                  subtitle: Container(
+                    width: 300,
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      '${classInfo.startTime} - ${classInfo.endTime}: ${classInfo.subject} with ${classInfo.teacher} in ${classInfo.room}',
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       );
     }
   }
