@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:schedule_app/models/schedules_model.dart';
 import 'package:schedule_app/utils/get_cycle_date.dart';
+import 'package:schedule_app/utils/get_week_day.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
@@ -15,12 +15,14 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   User? _currentUser;
   late DateTime selectedDate;
   late int indexDay;
+  late String weekDay;
 
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
+    selectedDate = calculateCurrentDay(DateTime.now(), 0);
     indexDay = calculateCycleDay(selectedDate, 6);
+    weekDay = formatDateEEEE(selectedDate);
 
     // Initialize _currentUser based on the logged-in user ID
     SharedPreferences.getInstance().then((prefs) {
@@ -38,7 +40,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   void _updateSelectedDate(int dayDifference) {
     setState(() {
       selectedDate = selectedDate.add(Duration(days: dayDifference));
-      int indexDay = calculateCycleDay(selectedDate, 6);
+      indexDay = calculateCycleDay(selectedDate, 6);
+      weekDay = formatDateEEEE(selectedDate);
     });
   }
 
@@ -50,7 +53,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${selectedDate}"),
+        title: Text("${weekDay}"),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
@@ -102,11 +105,17 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   Widget _buildSchedule(User? user, int indexDay) {
     int indexDay = calculateCycleDay(selectedDate, 6);
 
-    if (user == null || user.schedules.length <= indexDay) {
+    if (selectedDate.weekday > 5) {
+      return Text("Today is ${weekDay}, no school today!");
+    } else if (user == null || user.schedules.length <= indexDay) {
       return Text(
           'Schedule not found for this day\nToday is day: ${indexDay + 1}');
     } else if (user.schedules[indexDay].classes.isEmpty) {
       return Text('No classes for this day');
+    } else if (selectedDate == (DateTime)) {
+      return Text("Today theres no school");
+
+      /// for days with vacation and no school
     } else {
       return ListView.builder(
         itemCount: user.schedules[indexDay].classes.length,
