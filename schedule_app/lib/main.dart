@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_app/screens/figma_screen.dart';
 import 'package:schedule_app/screens/schedule_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
             return CircularProgressIndicator();
           } else {
             if (snapshot.data == true) {
-              return ScheduleScreen();
+              return ScheduleScreen2();
             } else {
               return LoginPage();
             }

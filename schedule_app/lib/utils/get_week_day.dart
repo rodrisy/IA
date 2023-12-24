@@ -17,3 +17,7 @@ String formatDateEEEEddMMMMyyyy(DateTime date) {
 String formatDateEEEE(DateTime date) {
   return DateFormat('EEEE').format(date);
 }
+
+String formatDateMMMMDD(DateTime date) {
+  return DateFormat('MMMM dd').format(date);
+}
