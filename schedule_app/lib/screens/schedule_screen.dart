@@ -33,11 +33,18 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     // Initialize _currentUser based on the logged-in user ID
     SharedPreferences.getInstance().then((prefs) {
       String? userId = prefs.getString('student_id');
-      User? foundUser = users.firstWhere(
-        (user) => user.id == userId,
-        orElse: () =>
-            users.firstWhere((user) => user.id == '0002', orElse: () => null),
-      );
+      User? foundUser;
+
+      if (userId != null) {
+        // If userId is not null, try to find a matching user
+        foundUser =
+            users.firstWhere((user) => user.id == userId, orElse: () => null);
+      }
+
+// If userId is null or no matching user is found, set it to the first user in the list
+      if (foundUser == null) {
+        foundUser = users.isNotEmpty ? users.first : null;
+      }
 
       setState(() {
         _currentUser = foundUser;
