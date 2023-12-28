@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:schedule_app/models/schedules_model.dart';
 import 'package:schedule_app/utils/get_cycle_date.dart';
 import 'package:schedule_app/utils/get_week_day.dart';
+import 'package:schedule_app/widgets/class_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
@@ -108,8 +109,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     if (selectedDate.weekday > 5) {
       return Text("Today is ${weekDay}, no school today!");
     } else if (user == null || user.schedules.length <= indexDay) {
-      return Text(
-          'Schedule not found for this day\nToday is day: ${indexDay + 1}');
+      return Text('Schedule not found for this day\nToday is day: ${indexDay}');
     } else if (user.schedules[indexDay].classes.isEmpty) {
       return Text('No classes for this day');
     } else if (selectedDate == (DateTime)) {
@@ -118,7 +118,16 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
       /// for days with vacation and no school
     } else {
       return ListView(
-        children: [],
+        children: [
+          ClassContainer(
+              index: 1,
+              startTime: "'${users.schedules[indexDay].classes.startTime}",
+              endTime: endTime,
+              subject: subject,
+              teacher: teacher,
+              room: room,
+              color: color)
+        ],
       );
     }
   }

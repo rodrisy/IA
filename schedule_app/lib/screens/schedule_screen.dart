@@ -39,12 +39,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         // If userId is not null, try to find a matching user
         foundUser = users.firstWhere((user) => user.id == userId);
       }
-
-// If userId is null or no maching user is found, set it to the first user in the list
-      else {
-        foundUser = users.isNotEmpty ? users.first : null;
-      }
-
       setState(() {
         _currentUser = foundUser;
       });
