@@ -24,7 +24,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     indexDay = calculateCycleDay(selectedDate, 6);
     weekDay = formatDateEEEE(selectedDate);
 
-    // Initialize _currentUser based on the logged-in user ID
+    // Initialize _currentUser based on the logged-in user ID.
     SharedPreferences.getInstance().then((prefs) {
       String? userId = prefs.getString('student_id');
       if (userId != null) {
