@@ -108,25 +108,26 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
 
     if (selectedDate.weekday > 5) {
       return Text("Today is ${weekDay}, no school today!");
-    } else if (user == null || user.schedules.length <= indexDay) {
-      return Text('Schedule not found for this day\nToday is day: ${indexDay}');
-    } else if (user.schedules[indexDay].classes.isEmpty) {
+      // } else if (user!.schedules.length <= indexDay) {
+      //   return Text('Schedule not found for this day\nToday is day: ${indexDay}');
+    } else if (user!.schedules[indexDay].classes.isEmpty) {
       return Text('No classes for this day');
-    } else if (selectedDate == (DateTime)) {
-      return Text("Today theres no school");
+      // } else if (selectedDate == (DateTime)) {
+      //   return Text("Today theres no school");
 
       /// for days with vacation and no school
     } else {
+      var classInfo = user!.schedules[indexDay];
       return ListView(
         children: [
           ClassContainer(
-              index: 1,
-              startTime: "'${users.schedules[indexDay].classes.startTime}",
-              endTime: endTime,
-              subject: subject,
-              teacher: teacher,
-              room: room,
-              color: color)
+            index: 1,
+            startTime: "${classInfo.classes[1].startTime}",
+            endTime: "${classInfo.classes[1].endTime}",
+            subject: "${classInfo.classes[1].subject}",
+            teacher: "${classInfo.classes[1].teacher}",
+            room: "${classInfo.classes[1].room}",
+          )
         ],
       );
     }
