@@ -22,7 +22,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
   late DateTime selectedDate;
   late int indexDay;
   late String weekDay;
-  // late String exactDate;
+  late String exactDate;
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     selectedDate = calculateCurrentDay(DateTime.now(), 0);
     indexDay = calculateCycleDay(selectedDate, 6);
     weekDay = formatDateEEEE(selectedDate);
-    // exactDate = formatDateMMMMDD(selectedDate);
+    exactDate = formatDateMMMMDD(selectedDate);
 
     // Initialize _currentUser based on the logged-in user ID.
     SharedPreferences.getInstance().then((prefs) {
@@ -50,7 +50,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
       selectedDate = selectedDate.add(Duration(days: dayDifference));
       indexDay = calculateCycleDay(selectedDate, 6);
       weekDay = formatDateEEEE(selectedDate);
-      // exactDate = formatDateMMMMDD(selectedDate);
+      exactDate = formatDateMMMMDD(selectedDate);
     });
   }
 
@@ -64,7 +64,9 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
       backgroundColor: MyColors.bgcolor,
       appBar: AppBar(
         backgroundColor: MyColors.bgcolor,
-        title: Text("${weekDay}"),
+        title: Text("Dwight 23-24"),
+        centerTitle: true,
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
@@ -151,9 +153,45 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     } else if (user.schedules.length < indexDay && selectedDate.weekday > 5) {
       return Text("Today is ${weekDay}, no school today!");
     } else if (user.schedules.length < indexDay) {
-      return Text(
-        'Schedule not found for this day\nToday is day: ${indexDay}',
-        style: myFonts.dayindex,
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //weekday and dayindex
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${weekDay}',
+                      style: myFonts.weekday,
+                    ),
+                    Text(
+                      "Day ${indexDay}",
+                      style: myFonts.dayindex,
+                    )
+                  ],
+                ),
+                // week exact
+                Text(
+                  "${exactDate}",
+                  style: myFonts.daylink,
+                )
+              ],
+            ),
+            Expanded(child: SizedBox()),
+            Text(
+              'Schedule not found for this day\nToday is day: ${indexDay}',
+              style: myFonts.dayindex,
+            ),
+            Expanded(child: SizedBox()),
+          ],
+        ),
       );
     } else if (_currentUser!.schedules[indexDay - 1].classes.isEmpty) {
       return Text('No classes for this day');
@@ -181,11 +219,11 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
                   )
                 ],
               ),
-              //week exact
-              // Text(
-              //   "${exactDate}",
-              //   style: myFonts.daylink,
-              // )
+              // week exact
+              Text(
+                "${exactDate}",
+                style: myFonts.daylink,
+              )
             ],
           ),
           ListView.builder(
