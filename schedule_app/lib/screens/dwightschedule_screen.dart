@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:schedule_app/models/schedules_model.dart';
 import 'package:schedule_app/utils/colors.dart';
+import 'package:schedule_app/utils/fonts.dart';
 import 'package:schedule_app/utils/get_cycle_date.dart';
 import 'package:schedule_app/utils/get_week_day.dart';
 import 'package:schedule_app/widgets/class_widget.dart';
@@ -14,10 +15,14 @@ class DwightScheduleScreen extends StatefulWidget {
 }
 
 class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
+  // fonts stating
+  final MyFonts myFonts = MyFonts();
+
   User? _currentUser;
   late DateTime selectedDate;
   late int indexDay;
   late String weekDay;
+  // late String exactDate;
 
   @override
   void initState() {
@@ -25,6 +30,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     selectedDate = calculateCurrentDay(DateTime.now(), 0);
     indexDay = calculateCycleDay(selectedDate, 6);
     weekDay = formatDateEEEE(selectedDate);
+    // exactDate = formatDateMMMMDD(selectedDate);
 
     // Initialize _currentUser based on the logged-in user ID.
     SharedPreferences.getInstance().then((prefs) {
@@ -44,6 +50,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
       selectedDate = selectedDate.add(Duration(days: dayDifference));
       indexDay = calculateCycleDay(selectedDate, 6);
       weekDay = formatDateEEEE(selectedDate);
+      // exactDate = formatDateMMMMDD(selectedDate);
     });
   }
 
@@ -72,7 +79,32 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
           ),
         ],
       ),
-      body: Center(
+      body:
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     //weekday and dayindex
+          //     Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text(
+          //           '${weekDay}',
+          //           style: myFonts.weekday,
+          //         ),
+          //         Text(
+          //           "Day ${indexDay}",
+          //           style: myFonts.dayindex,
+          //         )
+          //       ],
+          //     ),
+          //     //week exact
+          //     // Text(
+          //     //   "${exactDate}",
+          //     //   style: myFonts.daylink,
+          //     // )
+          //   ],
+          // ),
+          Center(
         child: _currentUser != null
             ? _buildSchedule(_currentUser, indexDay)
             : Text('User not found'),
@@ -82,13 +114,17 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(
+                Icons.arrow_back,
+              ),
               onPressed: () {
                 _updateSelectedDate(-1);
               },
             ),
             IconButton(
-              icon: Icon(Icons.arrow_forward),
+              icon: Icon(
+                Icons.arrow_forward,
+              ),
               onPressed: () {
                 _updateSelectedDate(1);
               },
@@ -99,6 +135,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // implement logic to add a new class
+          _updateSelectedDate(-1);
         },
         child: Icon(Icons.add),
       ),
@@ -114,15 +151,45 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     } else if (user.schedules.length < indexDay && selectedDate.weekday > 5) {
       return Text("Today is ${weekDay}, no school today!");
     } else if (user.schedules.length < indexDay) {
-      return Text('Schedule not found for this day\nToday is day: ${indexDay}');
+      return Text(
+        'Schedule not found for this day\nToday is day: ${indexDay}',
+        style: myFonts.dayindex,
+      );
     } else if (_currentUser!.schedules[indexDay - 1].classes.isEmpty) {
       return Text('No classes for this day');
     } else {
       return ListView(
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
         children: [
-          Text("HELLO"),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              //weekday and dayindex
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${weekDay}',
+                    style: myFonts.weekday,
+                  ),
+                  Text(
+                    "Day ${indexDay}",
+                    style: myFonts.dayindex,
+                  )
+                ],
+              ),
+              //week exact
+              // Text(
+              //   "${exactDate}",
+              //   style: myFonts.daylink,
+              // )
+            ],
+          ),
           ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+              padding: EdgeInsets.symmetric(vertical: 20),
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: user.schedules[indexDay - 1].classes.length,
