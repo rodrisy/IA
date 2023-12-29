@@ -129,7 +129,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
               itemBuilder: (context, index) {
                 var classInfo = user.schedules[indexDay - 1].classes[index];
                 return ListTile(
-                  contentPadding: EdgeInsets.only(bottom: 10),
+                  contentPadding: EdgeInsets.only(bottom: 5),
                   subtitle: ClassContainer(
                     startTime: "${classInfo.startTime}",
                     endTime: "${classInfo.endTime}",

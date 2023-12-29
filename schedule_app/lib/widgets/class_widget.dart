@@ -29,14 +29,16 @@ class ClassContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     // Build method returns the UI representation of the widget
     return Container(
+        padding: EdgeInsets.only(left: 26),
         width: 382,
         height: 70,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30), color: MyColors.aqua),
+            borderRadius: BorderRadius.circular(30), color: MyColors.red),
         child: Row(
           children: [
             //TIME
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "${startTime}",
@@ -48,8 +50,13 @@ class ClassContainer extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(
+              width: 14,
+            ),
             //INFO
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "${subject}",
