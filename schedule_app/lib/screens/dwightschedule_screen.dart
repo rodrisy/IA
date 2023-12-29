@@ -81,32 +81,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
           ),
         ],
       ),
-      body:
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     //weekday and dayindex
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           '${weekDay}',
-          //           style: myFonts.weekday,
-          //         ),
-          //         Text(
-          //           "Day ${indexDay}",
-          //           style: myFonts.dayindex,
-          //         )
-          //       ],
-          //     ),
-          //     //week exact
-          //     // Text(
-          //     //   "${exactDate}",
-          //     //   style: myFonts.daylink,
-          //     // )
-          //   ],
-          // ),
-          Center(
+      body: Center(
         child: _currentUser != null
             ? _buildSchedule(_currentUser, indexDay)
             : Text('User not found'),
@@ -151,7 +126,43 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     if (user == null) {
       return Text('User not found');
     } else if (user.schedules.length < indexDay && selectedDate.weekday > 5) {
-      return Text("Today is ${weekDay}, no school today!");
+      return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+          child: Column(children: [
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //weekday and dayindex
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${weekDay}',
+                      style: myFonts.weekday,
+                    ),
+                    Text(
+                      "Day ${indexDay}",
+                      style: myFonts.dayindex,
+                    )
+                  ],
+                ),
+                // week exact
+                Text(
+                  "${exactDate}",
+                  style: myFonts.daylink,
+                ),
+              ],
+            ),
+            Expanded(child: SizedBox()),
+            Text(
+              "Today is ${weekDay}, no school today!",
+              style: myFonts.dayindex,
+            ),
+            Expanded(child: SizedBox()),
+          ]));
     } else if (user.schedules.length < indexDay) {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
@@ -236,6 +247,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
                 return ListTile(
                   contentPadding: EdgeInsets.only(bottom: 5),
                   subtitle: ClassContainer(
+                    color: classColorsList[index],
                     startTime: "${classInfo.startTime}",
                     endTime: "${classInfo.endTime}",
                     subject: "${classInfo.subject}",

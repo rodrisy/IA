@@ -11,3 +11,24 @@ class MyColors {
   static const Color aqua = Color(0xff55D9E1);
   static const Color blue = Color(0xff5866E1);
 }
+
+List<Color> classColorsList = [
+  MyColors.red,
+  MyColors.orange,
+  MyColors.yellow,
+  MyColors.green,
+  MyColors.aqua,
+  MyColors.blue,
+  MyColors.red,
+  MyColors.orange,
+  MyColors.yellow,
+  MyColors.green,
+  MyColors.aqua,
+  MyColors.blue,
+  MyColors.red,
+  MyColors.orange,
+  MyColors.yellow,
+  MyColors.green,
+  MyColors.aqua,
+  MyColors.blue,
+];

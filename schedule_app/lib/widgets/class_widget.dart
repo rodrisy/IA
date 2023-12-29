@@ -14,6 +14,7 @@ class ClassContainer extends StatelessWidget {
   final String subject;
   final String teacher;
   final String room;
+  final Color color;
 
   // Constructor to initialize properties
   ClassContainer({
@@ -23,6 +24,7 @@ class ClassContainer extends StatelessWidget {
     required this.subject,
     required this.teacher,
     required this.room,
+    required this.color,
   });
 
   @override
@@ -33,7 +35,7 @@ class ClassContainer extends StatelessWidget {
         width: 382,
         height: 70,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30), color: MyColors.red),
+            borderRadius: BorderRadius.circular(30), color: color),
         child: Row(
           children: [
             //TIME

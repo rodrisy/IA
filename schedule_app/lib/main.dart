@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:schedule_app/screens/dwightschedule_screen.dart';
-import 'package:schedule_app/screens/schedule_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/schedules_model.dart';
