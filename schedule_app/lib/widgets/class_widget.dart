@@ -7,7 +7,7 @@ class ClassContainer extends StatelessWidget {
   // fonts stating
   final MyFonts myFonts = MyFonts();
   // Properties or parameters for the custom button
-  final int index;
+  // final int index;
   //
   final String startTime;
   final String endTime;
@@ -17,7 +17,7 @@ class ClassContainer extends StatelessWidget {
 
   // Constructor to initialize properties
   ClassContainer({
-    required this.index,
+    // required this.index,
     required this.startTime,
     required this.endTime,
     required this.subject,

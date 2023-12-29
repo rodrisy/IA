@@ -169,7 +169,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           )
         ],
       );
-    } else if (user.schedules[indexDay - 1].classes.isEmpty) {
+    } else if (user.schedules[indexDay].classes.isEmpty) {
       return Text(
         'No classes for this day',
         style: myFonts.classinfo,

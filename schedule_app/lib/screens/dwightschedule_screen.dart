@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:schedule_app/models/schedules_model.dart';
+import 'package:schedule_app/utils/colors.dart';
 import 'package:schedule_app/utils/get_cycle_date.dart';
 import 'package:schedule_app/utils/get_week_day.dart';
 import 'package:schedule_app/widgets/class_widget.dart';
@@ -53,7 +54,9 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColors.bgcolor,
       appBar: AppBar(
+        backgroundColor: MyColors.bgcolor,
         title: Text("${weekDay}"),
         actions: [
           IconButton(
@@ -106,28 +109,36 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
   Widget _buildSchedule(User? user, int indexDay) {
     int indexDay = calculateCycleDay(selectedDate, 6);
 
-    if (selectedDate.weekday > 5) {
+    if (user == null) {
+      return Text('User not found');
+    } else if (user.schedules.length < indexDay && selectedDate.weekday > 5) {
       return Text("Today is ${weekDay}, no school today!");
-      // } else if (user!.schedules.length <= indexDay) {
-      //   return Text('Schedule not found for this day\nToday is day: ${indexDay}');
-    } else if (user!.schedules[indexDay].classes.isEmpty) {
+    } else if (user.schedules.length < indexDay) {
+      return Text('Schedule not found for this day\nToday is day: ${indexDay}');
+    } else if (_currentUser!.schedules[indexDay - 1].classes.isEmpty) {
       return Text('No classes for this day');
-      // } else if (selectedDate == (DateTime)) {
-      //   return Text("Today theres no school");
-
-      /// for days with vacation and no school
     } else {
-      var classInfo = user!.schedules[indexDay];
       return ListView(
         children: [
-          ClassContainer(
-            index: 1,
-            startTime: "${classInfo.classes[1].startTime}",
-            endTime: "${classInfo.classes[1].endTime}",
-            subject: "${classInfo.classes[1].subject}",
-            teacher: "${classInfo.classes[1].teacher}",
-            room: "${classInfo.classes[1].room}",
-          )
+          Text("HELLO"),
+          ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: user.schedules[indexDay - 1].classes.length,
+              itemBuilder: (context, index) {
+                var classInfo = user.schedules[indexDay - 1].classes[index];
+                return ListTile(
+                  contentPadding: EdgeInsets.only(bottom: 10),
+                  subtitle: ClassContainer(
+                    startTime: "${classInfo.startTime}",
+                    endTime: "${classInfo.endTime}",
+                    subject: "${classInfo.subject}",
+                    teacher: "${classInfo.teacher}",
+                    room: "${classInfo.room}",
+                  ),
+                );
+              }),
         ],
       );
     }

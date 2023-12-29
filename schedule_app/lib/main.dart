@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             return CircularProgressIndicator();
           } else {
             if (snapshot.data == true) {
-              return ScheduleScreen();
+              return DwightScheduleScreen();
             } else {
               return LoginPage();
             }
