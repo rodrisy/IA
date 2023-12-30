@@ -1,3 +1,5 @@
+import 'package:schedule_app/models/class_model.dart';
+
 import '../main.dart';
 
 List<User> users = [
@@ -27,4 +29,20 @@ List<User> users = [
     ],
   ),
   // Add more users and their schedules as needed
+];
+
+// I HATEEEE THISSSS
+List<BUser> busers = [
+  BUser(
+    '0001',
+    BlockClass('8:00', '8:55', 'Math', 'Mr. Johnson', 'Room 101'),
+    BlockClass('9:00', '9:55', 'History', 'Ms. Smith', 'Room 202'),
+    BlockClass('10:00', '10:55', 'English', 'Mrs. Brown', 'Room 303'),
+  ),
+  BUser(
+    '0002',
+    BlockClass('8:00', '8:55', 'Math', 'Mr. Johnson', 'Room 101'),
+    BlockClass('9:00', '9:55', 'History', 'Ms. Smith', 'Room 202'),
+    BlockClass('10:00', '10:55', 'English', 'Mrs. Brown', 'Room 303'),
+  ),
 ];

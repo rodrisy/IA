@@ -4,6 +4,7 @@ import 'package:schedule_app/utils/fonts.dart';
 import 'package:schedule_app/utils/get_cycle_date.dart';
 import 'package:schedule_app/utils/get_week_day.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/class_model.dart';
 import '../utils/colors.dart';
 
 import '../main.dart';

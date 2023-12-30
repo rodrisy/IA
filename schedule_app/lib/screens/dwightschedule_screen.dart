@@ -8,6 +8,7 @@ import 'package:schedule_app/widgets/class_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
+import '../models/class_model.dart';
 
 class DwightScheduleScreen extends StatefulWidget {
   @override

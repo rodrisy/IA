@@ -4,33 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/schedules_model.dart';
 
-class Schedule {
-  final String day;
-  final List<Class> classes;
-
-  Schedule(this.day, this.classes);
-}
-
-class Class {
-  final String startTime;
-  final String endTime;
-  final String subject;
-  final String teacher;
-  final String room;
-
-  Class(this.startTime, this.endTime, this.subject, this.teacher, this.room);
-}
-
-class User {
-  final String id;
-  final List<Schedule> schedules;
-
-  User(
-    this.id,
-    this.schedules,
-  );
-}
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
