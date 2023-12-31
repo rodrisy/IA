@@ -312,17 +312,16 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     //
     switch (indexDay) {
       case 1:
-        return ListView(
+        return Column(
           children: [
-            Text('hello puta')
-            // ClassContainer(
-            //     startTime:
-            //         "${buser?.blockDictionary['ablock']?.startTime ?? ''}",
-            //     endTime: "${buser?.blockDictionary['ablock']?.endTime ?? ''}",
-            //     subject: "${buser?.blockDictionary['ablock']?.subject ?? ''}",
-            //     teacher: "${buser?.blockDictionary['ablock']?.teacher ?? ''}",
-            //     room: "${buser?.blockDictionary['ablock']?.room ?? ''}",
-            //     color: MyColors.aqua)
+            ClassContainer(
+                startTime:
+                    "${buser?.blockDictionary['ablock']?.startTime ?? ''}",
+                endTime: "${buser?.blockDictionary['ablock']?.endTime ?? ''}",
+                subject: "${buser?.blockDictionary['ablock']?.subject ?? ''}",
+                teacher: "${buser?.blockDictionary['ablock']?.teacher ?? ''}",
+                room: "${buser?.blockDictionary['ablock']?.room ?? ''}",
+                color: MyColors.aqua)
           ],
         );
       case 2:
