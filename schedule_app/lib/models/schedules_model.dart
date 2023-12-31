@@ -33,16 +33,22 @@ List<User> users = [
 
 // I HATEEEE THISSSS
 List<BUser> busers = [
-  BUser(
-    '0001',
-    BlockClass('8:00', '8:55', 'Math', 'Mr. Johnson', 'Room 101'),
-    BlockClass('9:00', '9:55', 'History', 'Ms. Smith', 'Room 202'),
-    BlockClass('10:00', '10:55', 'English', 'Mrs. Brown', 'Room 303'),
-  ),
-  BUser(
-    '0002',
-    BlockClass('8:00', '8:55', 'Math', 'Mr. Johnson', 'Room 101'),
-    BlockClass('9:00', '9:55', 'History', 'Ms. Smith', 'Room 202'),
-    BlockClass('10:00', '10:55', 'English', 'Mrs. Brown', 'Room 303'),
-  ),
+  BUser(id: '0001', blockDictionary: {
+    'ablock': BlockClass('8:00', '8:55', 'Math', 'Mr. Johnson', 'Room 101'),
+    'bblock': BlockClass('9:00', '9:55', 'History', 'Ms. Smith', 'Room 202'),
+    'cblock': BlockClass('10:00', '10:55', 'English', 'Mrs. Brown', 'Room 303'),
+  }),
+];
+
+List<BlockSchedule> blockschedules = [
+  BlockSchedule('testschedule1', [
+    BlockDay('day 1', [
+      'ablock',
+      'bblock',
+      'cblock',
+      'dblock',
+      'eblock',
+      'fblock',
+    ])
+  ])
 ];

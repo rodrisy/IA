@@ -31,11 +31,9 @@ class User {
 
 class BUser {
   final String id;
-  final BlockClass ablock;
-  final BlockClass bblock;
-  final BlockClass cblock;
+  final Map<String, BlockClass> blockDictionary;
 
-  BUser(this.id, this.ablock, this.bblock, this.cblock);
+  BUser({required this.id, required this.blockDictionary});
 }
 
 // class BlockSchedule {
@@ -53,4 +51,23 @@ class BlockClass {
 
   BlockClass(
       this.startTime, this.endTime, this.subject, this.teacher, this.room);
+}
+
+// now the dwighjt schedule
+
+class BlockSchedule {
+  final String name;
+  final List<BlockDay> blockdays;
+
+  BlockSchedule(this.name, this.blockdays);
+}
+
+class BlockDay {
+  final String day;
+  final List<String> blocks;
+
+  BlockDay(
+    this.day,
+    this.blocks,
+  );
 }
