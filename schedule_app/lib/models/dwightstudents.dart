@@ -4,23 +4,24 @@ List<BUser> dwightusers = [
   BUser(
     id: '2025rsanchez',
     blockDictionary: {
-      'a': Block(subject: 'Econ HL', teacher: 'Jorge Ruel', room: 'M7'),
-      'b': Block(subject: 'Free Period or HL', teacher: '', room: ''),
-      'c': Block(
+      'a': BlockClass(subject: 'Econ HL', teacher: 'Jorge Ruel', room: 'M7'),
+      'b': BlockClass(subject: 'Free Period or HL', teacher: '', room: ''),
+      'c': BlockClass(
           subject: 'Chemistry HL', teacher: 'James Kearsley', room: '403lab'),
-      'd': Block(
+      'd': BlockClass(
           subject: 'Compsci HL', teacher: 'Matthew Moran', room: '501lab'),
-      'e': Block(
+      'e': BlockClass(
           subject: 'English SL Lang and Lit',
           teacher: 'Sarah Waldron',
           room: 'NC12'),
-      'f': Block(
+      'f': BlockClass(
           subject: 'ESP SL Lang and Lit',
           teacher: 'Javier Sanchez',
           room: 'Conf504 in Columbus'),
-      'g': Block(subject: 'Free Period or HL', teacher: '', room: ''),
-      'h': Block(subject: 'Microcourse', teacher: '', room: ''),
-      'i': Block(subject: 'Math SL AA', teacher: 'Summer Long', room: 'LL6'),
+      'g': BlockClass(subject: 'Free Period or HL', teacher: '', room: ''),
+      'h': BlockClass(subject: 'Microcourse', teacher: '', room: ''),
+      'i': BlockClass(
+          subject: 'Math SL AA', teacher: 'Summer Long', room: 'LL6'),
     },
   )
 ];

@@ -308,19 +308,22 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
   Widget _dwight11body(User? user, int indexDay, BUser? buser) {
     int indexDay = calculateCycleDay(selectedDate, 6);
     //
+    BlockSchedule grade11Schedule = schedules[1];
 
+    BlockDay day6 = grade11Schedule.days[5];
+
+    Block blockH = day6.blocks.firstWhere((block) => block.letter == 'h');
     //
     switch (indexDay) {
       case 1:
         return Column(
           children: [
             ClassContainer(
-                startTime:
-                    "${buser?.blockDictionary['ablock']?.startTime ?? ''}",
-                endTime: "${buser?.blockDictionary['ablock']?.endTime ?? ''}",
-                subject: "${buser?.blockDictionary['ablock']?.subject ?? ''}",
-                teacher: "${buser?.blockDictionary['ablock']?.teacher ?? ''}",
-                room: "${buser?.blockDictionary['ablock']?.room ?? ''}",
+                startTime: "${schedules[1].days[5].blocks[0].startTime}",
+                endTime: "${schedules[1].days[5].blocks[0].endTime}",
+                subject: "${buser?.blockDictionary['a']?.subject ?? ''}",
+                teacher: "${buser?.blockDictionary['a']?.teacher ?? ''}",
+                room: "${buser?.blockDictionary['a']?.room ?? ''}",
                 color: MyColors.aqua)
           ],
         );
