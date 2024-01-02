@@ -29,13 +29,6 @@ class User {
 
 //// I AM GOING INSANE
 
-class BUser {
-  final String id;
-  final Map<String, BlockClass> blockDictionary;
-
-  BUser({required this.id, required this.blockDictionary});
-}
-
 // class BlockSchedule {
 //   final List<BlockClass> blockclasses;
 
@@ -43,31 +36,41 @@ class BUser {
 // }
 
 class BlockClass {
-  final String startTime;
-  final String endTime;
   final String subject;
   final String teacher;
   final String room;
 
   BlockClass(
-      this.startTime, this.endTime, this.subject, this.teacher, this.room);
+      {required this.subject, required this.teacher, required this.room});
 }
 
 // now the dwighjt schedule
 
-class BlockSchedule {
-  final String name;
-  final List<BlockDay> blockdays;
+class Block {
+  final String letter;
+  final String startTime;
+  final String endTime;
 
-  BlockSchedule(this.name, this.blockdays);
+  Block({required this.letter, required this.startTime, required this.endTime});
 }
 
 class BlockDay {
-  final String day;
-  final List<String> blocks;
+  final String dayName;
+  final List<Block> blocks;
 
-  BlockDay(
-    this.day,
-    this.blocks,
-  );
+  BlockDay(this.dayName, this.blocks);
+}
+
+class BlockSchedule {
+  final String scheduleName;
+  final List<BlockDay> days;
+
+  BlockSchedule(this.scheduleName, this.days);
+}
+
+class BUser {
+  final String id;
+  final Map<String, BlockClass> blockDictionary;
+
+  BUser({required this.id, required this.blockDictionary});
 }
