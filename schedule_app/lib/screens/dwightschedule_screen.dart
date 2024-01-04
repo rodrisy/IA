@@ -37,13 +37,13 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     // Initialize _currentUser based on the logged-in user ID.
     SharedPreferences.getInstance().then((prefs) {
       String? userId = prefs.getString('student_id');
-      if (userId != null) {
-        User? foundUser =
-            users.firstWhere((user) => user.id == userId, orElse: null);
-        setState(() {
-          _currentUser = foundUser;
-        });
-      }
+      // if (userId != null) {
+      //   User? foundUser =
+      //       users.firstWhere((user) => user.id == userId, orElse: null);
+      //   setState(() {
+      //     _currentUser = foundUser;
+      //   });
+      // }
 
       if (userId != null) {
         BUser? foundBUser =
@@ -92,9 +92,9 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
         ],
       ),
       body: Center(
-        child: _currentUser != null
+        child: _currentBUser != null || _currentUser != null
             ? _buildSchedule(_currentUser, indexDay, _currentBUser)
-            : Text('User not found'),
+            : Text('User not found abc'),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -133,7 +133,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
   Widget _buildSchedule(User? user, int indexDay, BUser? buser) {
     int indexDay = calculateCycleDay(selectedDate, 6);
 
-    if (user == null) {
+    if (user == null && buser == null) {
       return Text('User not found');
       // } else if (user.schedules.length < indexDay && selectedDate.weekday > 5) {
       //   return Padding(
@@ -218,40 +218,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
       //   return Text('No classes for this day');
     } else if (true) {
       return ListView(
-        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //weekday and dayindex
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${weekDay}',
-                    style: myFonts.weekday,
-                  ),
-                  Text(
-                    "Day ${indexDay}",
-                    style: myFonts.dayindex,
-                  )
-                ],
-              ),
-              // week exact
-              Text(
-                "${exactDate}",
-                style: myFonts.daylink,
-              )
-            ],
-          ),
-          _dwight11body(user, indexDay, buser),
-        ],
-      );
-    } else {
-      return ListView(
+        physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
         children: [
           SizedBox(
@@ -285,24 +252,79 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
               padding: EdgeInsets.symmetric(vertical: 20),
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: user.schedules[indexDay - 1].classes.length,
+              itemCount: schedules[1].days[indexDay - 1].blocks.length,
               itemBuilder: (context, index) {
-                var classInfo = user.schedules[indexDay - 1].classes[index];
+                var blockInfo = schedules[1].days[indexDay - 1].blocks[index];
+                var classInfo = buser?.blockDictionary[
+                    schedules[1].days[indexDay - 1].blocks[index].letter];
                 return ListTile(
                   contentPadding: EdgeInsets.only(bottom: 5),
                   subtitle: ClassContainer(
                     color: classColorsList[index],
-                    startTime: "${classInfo.startTime}",
-                    endTime: "${classInfo.endTime}",
-                    subject: "${classInfo.subject}",
-                    teacher: "${classInfo.teacher}",
-                    room: "${classInfo.room}",
+                    startTime: "${blockInfo.startTime}",
+                    endTime: "${blockInfo.endTime}",
+                    subject: "${classInfo?.subject ?? ''}",
+                    teacher: "${classInfo?.teacher ?? ''}",
+                    room: "${classInfo?.room ?? ''}",
                   ),
                 );
-              }),
+              })
         ],
       );
     }
+    // else {
+    //   return ListView(
+    //     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+    //     children: [
+    //       SizedBox(
+    //         height: 10,
+    //       ),
+    //       Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: [
+    //           //weekday and dayindex
+    //           Column(
+    //             crossAxisAlignment: CrossAxisAlignment.start,
+    //             children: [
+    //               Text(
+    //                 '${weekDay}',
+    //                 style: myFonts.weekday,
+    //               ),
+    //               Text(
+    //                 "Day ${indexDay}",
+    //                 style: myFonts.dayindex,
+    //               )
+    //             ],
+    //           ),
+    //           // week exact
+    //           Text(
+    //             "${exactDate}",
+    //             style: myFonts.daylink,
+    //           )
+    //         ],
+    //       ),
+    //       ListView.builder(
+    //           padding: EdgeInsets.symmetric(vertical: 20),
+    //           shrinkWrap: true,
+    //           physics: NeverScrollableScrollPhysics(),
+    //           itemCount: user.schedules[indexDay - 1].classes.length,
+    //           itemBuilder: (context, index) {
+    //             var classInfo = user.schedules[indexDay - 1].classes[index];
+    //             return ListTile(
+    //               contentPadding: EdgeInsets.only(bottom: 5),
+    //               subtitle: ClassContainer(
+    //                 color: classColorsList[index],
+    //                 startTime: "${classInfo.startTime}",
+    //                 endTime: "${classInfo.endTime}",
+    //                 subject: "${classInfo.subject}",
+    //                 teacher: "${classInfo.teacher}",
+    //                 room: "${classInfo.room}",
+    //               ),
+    //             );
+    //           }),
+    //     ],
+    //   );
+    // }
   }
 
   Widget _dwight11body(User? user, int indexDay, BUser? buser) {
@@ -316,17 +338,41 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     //
     switch (indexDay) {
       case 1:
-        return Column(
-          children: [
-            ClassContainer(
-                startTime: "${schedules[1].days[5].blocks[0].startTime}",
-                endTime: "${schedules[1].days[5].blocks[0].endTime}",
-                subject: "${buser?.blockDictionary['a']?.subject ?? ''}",
-                teacher: "${buser?.blockDictionary['a']?.teacher ?? ''}",
-                room: "${buser?.blockDictionary['a']?.room ?? ''}",
-                color: MyColors.aqua)
-          ],
-        );
+        // return Column(
+        //   children: [
+        //     ClassContainer(
+        //         startTime: "${schedules[1].days[0].blocks[0].startTime}",
+        //         endTime: "${schedules[1].days[0].blocks[0].endTime}",
+        //         subject:
+        //             "${buser?.blockDictionary[schedules[1].days[0].blocks[0].letter]?.subject ?? ''}",
+        //         teacher:
+        //             "${buser?.blockDictionary[schedules[1].days[0].blocks[0].letter]?.teacher ?? ''}",
+        //         room:
+        //             "${buser?.blockDictionary[schedules[1].days[0].blocks[0].letter]?.room ?? ''}",
+        //         color: MyColors.aqua)
+        //   ],
+        // );
+        return ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: schedules[1].days[indexDay - 1].blocks.length,
+            itemBuilder: (context, index) {
+              var blockInfo = schedules[1].days[indexDay - 1].blocks[index];
+              var classInfo = buser?.blockDictionary[
+                  schedules[1].days[indexDay - 1].blocks[index].letter];
+              return ListTile(
+                contentPadding: EdgeInsets.only(bottom: 5),
+                subtitle: ClassContainer(
+                  color: classColorsList[index],
+                  startTime: "${blockInfo.startTime}",
+                  endTime: "${blockInfo.endTime}",
+                  subject: "${classInfo?.subject ?? ''}",
+                  teacher: "${classInfo?.teacher ?? ''}",
+                  room: "${classInfo?.room ?? ''}",
+                ),
+              );
+            });
       case 2:
         return Container(
           color: Colors.orange,
