@@ -342,7 +342,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     //           }),
     //     ],
     //   );
-    // }
+    // }.
   }
 
   Widget _dwight11body(User? user, int indexDay, BUser? buser) {
