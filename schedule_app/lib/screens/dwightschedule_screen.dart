@@ -5,6 +5,7 @@ import 'package:schedule_app/utils/fonts.dart';
 import 'package:schedule_app/utils/get_cycle_date.dart';
 import 'package:schedule_app/utils/get_week_day.dart';
 import 'package:schedule_app/widgets/class_widget.dart';
+import 'package:schedule_app/widgets/toggle_switch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
@@ -114,6 +115,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
             ),
           ),
         ),
+        ToggleSwitch(),
         ListTile(
           title: Text('Item 1'),
           onTap: () {
