@@ -107,7 +107,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
             color: Colors.blue,
           ),
           child: Text(
-            'Drawer Header',
+            'Settings',
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
