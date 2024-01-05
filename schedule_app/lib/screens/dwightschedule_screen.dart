@@ -5,6 +5,7 @@ import 'package:schedule_app/utils/fonts.dart';
 import 'package:schedule_app/utils/get_cycle_date.dart';
 import 'package:schedule_app/utils/get_week_day.dart';
 import 'package:schedule_app/widgets/class_widget.dart';
+import 'package:schedule_app/widgets/notification_button.dart';
 import 'package:schedule_app/widgets/toggle_icon_button.dart';
 import 'package:schedule_app/widgets/toggle_switch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -118,6 +119,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
         ),
         ToggleSwitch(),
         ToggleIconButton(),
+        NotificationButton(),
       ])),
       body: Center(
         child: _currentBUser != null || _currentUser != null
@@ -150,7 +152,7 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // implement logic to add a new class
-          _updateSelectedDate(-1);
+          _showCustomAlert(context);
         },
         child: Icon(Icons.add),
       ),
@@ -392,5 +394,41 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
           child: Text('defsault either day 5 or six'),
         );
     }
+  }
+
+  void _showCustomAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'This button does absolutely nothing.',
+            style: TextStyle(fontSize: 30),
+          ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'For your own mental stability, do not press again.\n For your own mental stability, do not press again.\n For your own mental stability, do not press again.\n For your own mental stability, do not press again.\n For your own mental stability, do not press again.\nFor your own mental stability, do not press again.\n For your own mental stability, do not press again.\n For your own mental stability, do not press again.\n For your own mental stability, do not press again.\n For your own mental stability, do not press again.\n For your own mental stability, do not press again.\n',
+                style: TextStyle(fontSize: 10),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'okay yes, my bad',
+                style: TextStyle(fontSize: 30),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the alert
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
