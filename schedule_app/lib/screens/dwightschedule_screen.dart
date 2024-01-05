@@ -68,15 +68,23 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
     return calculateCycleDay(selectedDate, 6);
   }
 
+  // i dont even know what this does at this point :/
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: MyColors.bgcolor,
       appBar: AppBar(
         backgroundColor: MyColors.bgcolor,
         title: Text("Dwight 23-24"),
         centerTitle: true,
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+        leading: IconButton(
+            onPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
+            icon: Icon(Icons.settings)),
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
@@ -91,6 +99,34 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
           ),
         ],
       ),
+      drawer: Drawer(
+          // Drawer content goes here
+          child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
+          child: Text(
+            'Drawer Header',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        ListTile(
+          title: Text('Item 1'),
+          onTap: () {
+            // Handle item 1 tap
+          },
+        ),
+        ListTile(
+          title: Text('Item 2'),
+          onTap: () {
+            // Handle item 2 tap
+          },
+        )
+      ])),
       body: Center(
         child: _currentBUser != null || _currentUser != null
             ? _buildSchedule(_currentUser, indexDay, _currentBUser)
@@ -290,59 +326,6 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
         ],
       );
     }
-    // else {
-    //   return ListView(
-    //     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 10),
-    //     children: [
-    //       SizedBox(
-    //         height: 10,
-    //       ),
-    //       Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: [
-    //           //weekday and dayindex
-    //           Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Text(
-    //                 '${weekDay}',
-    //                 style: myFonts.weekday,
-    //               ),
-    //               Text(
-    //                 "Day ${indexDay}",
-    //                 style: myFonts.dayindex,
-    //               )
-    //             ],
-    //           ),
-    //           // week exact
-    //           Text(
-    //             "${exactDate}",
-    //             style: myFonts.daylink,
-    //           )
-    //         ],
-    //       ),
-    //       ListView.builder(
-    //           padding: EdgeInsets.symmetric(vertical: 20),
-    //           shrinkWrap: true,
-    //           physics: NeverScrollableScrollPhysics(),
-    //           itemCount: user.schedules[indexDay - 1].classes.length,
-    //           itemBuilder: (context, index) {
-    //             var classInfo = user.schedules[indexDay - 1].classes[index];
-    //             return ListTile(
-    //               contentPadding: EdgeInsets.only(bottom: 5),
-    //               subtitle: ClassContainer(
-    //                 color: classColorsList[index],
-    //                 startTime: "${classInfo.startTime}",
-    //                 endTime: "${classInfo.endTime}",
-    //                 subject: "${classInfo.subject}",
-    //                 teacher: "${classInfo.teacher}",
-    //                 room: "${classInfo.room}",
-    //               ),
-    //             );
-    //           }),
-    //     ],
-    //   );
-    // }.
   }
 
   Widget _dwight11body(User? user, int indexDay, BUser? buser) {

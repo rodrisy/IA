@@ -1,7 +1,7 @@
 import 'dart:io';
 
 int calculateCycleDay(DateTime currentDate, int cycleDays) {
-  DateTime startDay = DateTime(currentDate.year, 12, 1);
+  DateTime startDay = DateTime(currentDate.year, 1, 1);
   while (startDay.weekday != DateTime.monday) {
     startDay = startDay.add(Duration(days: 1));
   }
