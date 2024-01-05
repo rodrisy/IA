@@ -252,22 +252,40 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
               padding: EdgeInsets.symmetric(vertical: 20),
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
+              // schedules[1] is 11th grader schedule
+              // schedules[0] is test1 retard
               itemCount: schedules[1].days[indexDay - 1].blocks.length,
               itemBuilder: (context, index) {
                 var blockInfo = schedules[1].days[indexDay - 1].blocks[index];
                 var classInfo = buser?.blockDictionary[
                     schedules[1].days[indexDay - 1].blocks[index].letter];
-                return ListTile(
-                  contentPadding: EdgeInsets.only(bottom: 5),
-                  subtitle: ClassContainer(
-                    color: classColorsList[index],
-                    startTime: "${blockInfo.startTime}",
-                    endTime: "${blockInfo.endTime}",
-                    subject: "${classInfo?.subject ?? ''}",
-                    teacher: "${classInfo?.teacher ?? ''}",
-                    room: "${classInfo?.room ?? ''}",
-                  ),
-                );
+                //
+
+                //
+                // if the current period is lunch time!
+                if (blockInfo.letter != 'lunch')
+                  return ListTile(
+                    contentPadding: EdgeInsets.only(bottom: 5),
+                    subtitle: ClassContainer(
+                      color: classColorsList[index],
+                      startTime: "${blockInfo.startTime}",
+                      endTime: "${blockInfo.endTime}",
+                      subject: "${classInfo?.subject}",
+                      teacher: "${classInfo?.teacher}",
+                      room: "${classInfo?.room}",
+                    ),
+                  );
+                if (blockInfo.letter == 'lunch')
+                  return ListTile(
+                      contentPadding: EdgeInsets.only(bottom: 5),
+                      subtitle: ClassContainer(
+                        color: classColorsList[index],
+                        startTime: "${blockInfo.startTime}",
+                        endTime: "${blockInfo.endTime}",
+                        subject: "${blockInfo.letter}",
+                        teacher: "",
+                        room: "",
+                      ));
               })
         ],
       );
@@ -357,6 +375,8 @@ class _DwightScheduleScreenState extends State<DwightScheduleScreen> {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: schedules[1].days[indexDay - 1].blocks.length,
+            // schedules[1] is the schedule for 11th graders dummy
+            // schedules[0] is the schedule for test1 fucking dumbass
             itemBuilder: (context, index) {
               var blockInfo = schedules[1].days[indexDay - 1].blocks[index];
               var classInfo = buser?.blockDictionary[

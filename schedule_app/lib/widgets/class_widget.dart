@@ -64,10 +64,12 @@ class ClassContainer extends StatelessWidget {
                   "${subject}",
                   style: myFonts.subject,
                 ),
-                Text(
-                  "${teacher}, ${room}",
-                  style: myFonts.classinfo,
-                )
+                if (teacher != '' && room != '')
+                  Text(
+                    // text box bottom
+                    "${teacher}, ${room}",
+                    style: myFonts.classinfo,
+                  )
               ],
             ),
           ],
