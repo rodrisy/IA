@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:schedule_app/utils/colors.dart';
 import 'package:schedule_app/utils/fonts.dart';
 
 // ClassContainer is a stateless widget

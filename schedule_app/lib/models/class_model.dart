@@ -1,5 +1,3 @@
-import 'package:schedule_app/main.dart';
-
 class Schedule {
   final String day;
   final List<Class> classes;
@@ -64,8 +62,9 @@ class BlockDay {
 class BlockSchedule {
   final String scheduleName;
   final List<BlockDay> days;
+  final List<DateTime> vacationDays;
 
-  BlockSchedule(this.scheduleName, this.days);
+  BlockSchedule(this.scheduleName, this.days, this.vacationDays);
 }
 
 class BUser {

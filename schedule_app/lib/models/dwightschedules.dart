@@ -63,6 +63,6 @@ List<BlockSchedule> dwightschedules = [
       Block(letter: 'h', startTime: '13:00', endTime: '13:55'),
       Block(letter: 'i', startTime: '14:00', endTime: '14:55'),
     ]),
-  ])
+  ], [])
 //  12 grade schedule...
 ];

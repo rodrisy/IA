@@ -1,7 +1,5 @@
 import 'package:schedule_app/models/class_model.dart';
 
-import '../main.dart';
-
 List<User> users = [
   User(
     '0001',
@@ -77,6 +75,8 @@ List<BlockSchedule> schedules = [
       Block(letter: 'e', startTime: '', endTime: ''),
       Block(letter: 'f', startTime: '', endTime: ''),
     ])
+  ], [
+    //insert vacation dates individually in form yyyymmdd
   ]),
 // 11 grade schedule
   BlockSchedule('11grade', [
@@ -140,6 +140,8 @@ List<BlockSchedule> schedules = [
       Block(letter: 'h', startTime: '13:00', endTime: '13:55'),
       Block(letter: 'i', startTime: '14:00', endTime: '14:55'),
     ]),
+  ], [
+    //insert vacation dates individually in form yyyymmdd
   ])
 //  12 grade schedule...
 ];

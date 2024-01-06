@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:intl/intl.dart';
+import 'package:schedule_app/models/schedules_model.dart';
+
 int calculateCycleDay(DateTime currentDate, int cycleDays) {
   DateTime startDay = DateTime(currentDate.year, 1, 1);
   while (startDay.weekday != DateTime.monday) {
@@ -7,9 +10,11 @@ int calculateCycleDay(DateTime currentDate, int cycleDays) {
   }
 
   int daysBetween = 0;
+  String formattedStartDay = DateFormat('yyyyMMdd').format(startDay);
   while (startDay.isBefore(currentDate)) {
     if (startDay.weekday != DateTime.saturday &&
-        startDay.weekday != DateTime.sunday) {
+        startDay.weekday != DateTime.sunday &&
+        !schedules[1].vacationDays.contains(formattedStartDay)) {
       daysBetween++;
     }
     startDay = startDay.add(Duration(days: 1));
